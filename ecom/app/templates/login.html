@@ -32,30 +32,5 @@
         <a href="{% url 'signup' %}"><button class="btn btn-secondary w-100">Sign Up </button></a>
     </div>
 
-    <!-- <script>
-        // Login functionality
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            const email = document.getElementById("email").value.trim();
-            const password = document.getElementById("password").value.trim();
-
-            // Check if email & password exist in localStorage
-            const storedUser = JSON.parse(localStorage.getItem("user"));
-
-            if (storedUser && storedUser.email === email && storedUser.password === password) {
-                alert("Login successful!");
-                window.location.href = "{% url 'home2' %}"; // Redirect to profile page
-            } else {
-                alert("Invalid email or password. Please try again.");
-            }
-        });
-
-        // Redirect to sign-up page
-        function redirectToSignup() {
-            window.location.href = "{% url 'signup' %}"; // Change to actual signup page
-        }
-    </script> -->
-
 </body>
 </html>
