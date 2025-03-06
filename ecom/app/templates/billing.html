@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PritiKart - Billing Page</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 20px;
+            background: white;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        h2 {
+            text-align: center;
+        }
+        .billing-info, .payment-method, .items-container {
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .total-container {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f8f8;
+        }
+        .calculate-btn, .pay-btn {
+            background-color: #bd185d;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .calculate-btn:hover, .pay-btn:hover {
+            background-color: #9c134a;
+        }
+    </style>
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Billing Details</h2>
+        
+        <div class="items-container">
+            <h3>Items</h3>
+            <div id="items-list"></div>
+            <button onclick="addItem()">Add Item</button>
+        </div>
+        
+        <div class="billing-info">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" required>
+            
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+            
+            <label for="address">Address</label>
+            <input type="text" id="address" required>
+            
+            <label for="city">City</label>
+            <input type="text" id="city" required>
+            
+            <label for="state">State</label>
+            <select id="state" required>
+                <option selected disabled value="">Choose...</option>
+                <option>West Bengal</option>
+                <option>Maharashtra</option>
+                <option>Delhi</option>
+            </select>
+            
+            <label for="pincode">Pincode</label>
+            <input type="text" id="pincode" required>
+        </div>
+        
+        <button class="calculate-btn" onclick="updateTotalPrice()">Calculate Total</button>
+
+        <div class="payment-method">
+            <h3>Payment Method</h3>
+        </div>
+        <div id="qrcode"></div>
+        
+        <button class="pay-btn" onclick="processPayment()">Proceed to Pay</button>
+    </div>
+
+    <script>
+        function addItem() {
+            let itemsList = document.getElementById("items-list");
+            let itemDiv = document.createElement("div");
+            itemDiv.innerHTML = `
+                <label>Item Name</label>
+                <input type="text" class="item-name" required>
+                <label>Price</label>
+                <input type="number" class="item-price" oninput="updateTotalPrice()" required>
+                <label>Quantity</label>
+                <input type="number" class="item-quantity" value="1" oninput="updateTotalPrice()" required>
+            `;
+            itemsList.appendChild(itemDiv);
+        }
+        
+        function updateTotalPrice() {
+            let totalPrice = 0;
+            let prices = document.querySelectorAll(".item-price");
+            let quantities = document.querySelectorAll(".item-quantity");
+            
+            for (let i = 0; i < prices.length; i++) {
+                let price = parseFloat(prices[i].value) || 0;
+                let quantity = parseInt(quantities[i].value) || 0;
+                totalPrice += price * quantity;
+            }
+            document.getElementById("totalPrice").innerText = `₹${totalPrice.toFixed(2)}`;
+        }
+
+        function processPayment() {
+            let totalPrice = parseFloat(document.getElementById("totalPrice").innerText.replace("₹", "")) * 100;
+            let fullname = document.getElementById("fullname").value;
+            let email = document.getElementById("email").value;
+            
+            let options = {
+                "key": "YOUR_RAZORPAY_KEY", 
+                "amount": totalPrice, 
+                "currency": "INR",
+                "name": "PritiKart",
+                "description": "Order Payment",
+                "handler": function (response) {
+                    alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+                },
+                "prefill": {
+                    "name": fullname,
+                    "email": email
+                },
+                "theme": {
+                    "color": "#bd185d"
+                }
+            };
+            
+            let rzp = new Razorpay(options);
+            rzp.open();
+        }
+    </script>
+
+<script>
+    var qrcode = new QRCode("qrcode",
+    "upi://pay?pa=rittikasamanta03@oksbi&am=299&mode=02");
+</script>
+</body>
+</html>

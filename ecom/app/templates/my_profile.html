@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PritiKart - My Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 10px;
+            flex-direction: column;
+        }
+        .profile-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .profile-container h2 {
+            margin-bottom: 20px;
+        }
+        .profile-info {
+            text-align: left;
+            margin: 10px 0;
+        }
+        .profile-info label {
+            font-weight: bold;
+        }
+        .profile-info input, .profile-info select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .edit-btn, .address-btn {
+            background-color: #bd185d;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin: 5px 0;
+        }
+        .edit-btn:hover, .address-btn:hover {
+            background-color: #9c134a;
+        }
+        @media (max-width: 480px) {
+            .profile-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <h2>My Profile</h2>
+        
+        <div class="profile-info">
+            <form id="profileForm">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" required>
+                
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" required>
+                
+                <label for="area">Area / Locality / Road Name</label>
+                <input type="text" id="area" required>
+                
+                <label for="apartment">Apartment / Building No.</label>
+                <input type="text" id="apartment" required>
+                
+                <label for="block">Block No. / Flat No. / Floor No.</label>
+                <input type="text" id="block" required>
+                
+                <label for="landmark">Landmark (Optional)</label>
+                <input type="text" id="landmark">
+                
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" required>
+                
+                <label for="altPhone">Alternate Phone Number</label>
+                <input type="text" id="altPhone" required>
+                
+                <label for="city">City</label>
+                <input type="text" id="city" required>
+                
+                <label for="state">State</label>
+                <select id="state" required>
+                    <option selected disabled value="">Choose...</option>
+                    <option>West Bengal</option>
+                    <option>Maharashtra</option>
+                    <option>Delhi</option>
+                    <option>Uttar Pradesh</option>
+                </select>
+                
+                <label for="pincode">Pincode</label>
+                <input type="text" id="pincode" required>
+                
+                <button class="edit-btn" type="submit">Save Profile</button>
+            </form>
+        </div>
+
+        <button class="address-btn" onclick="manageAddress()">Manage Addresses</button>
+    </div>
+
+    <script>  
+        // Load saved profile data from localStorage
+        function loadProfile() {
+            const profileData = JSON.parse(localStorage.getItem("profileData"));
+            if (profileData) {
+                document.getElementById("firstName").value = profileData.firstName || "";
+                document.getElementById("lastName").value = profileData.lastName || "";
+                document.getElementById("area").value = profileData.area || "";
+                document.getElementById("apartment").value = profileData.apartment || "";
+                document.getElementById("block").value = profileData.block || "";
+                document.getElementById("landmark").value = profileData.landmark || "";
+                document.getElementById("phone").value = profileData.phone || "";
+                document.getElementById("altPhone").value = profileData.altPhone || "";
+                document.getElementById("city").value = profileData.city || "";
+                document.getElementById("state").value = profileData.state || "";
+                document.getElementById("pincode").value = profileData.pincode || "";
+            }
+        }
+
+        // Save profile data
+        document.getElementById("profileForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const profileData = {
+                firstName: document.getElementById("firstName").value.trim(),
+                lastName: document.getElementById("lastName").value.trim(),
+                area: document.getElementById("area").value.trim(),
+                apartment: document.getElementById("apartment").value.trim(),
+                block: document.getElementById("block").value.trim(),
+                landmark: document.getElementById("landmark").value.trim(),
+                phone: document.getElementById("phone").value.trim(),
+                altPhone: document.getElementById("altPhone").value.trim(),
+                city: document.getElementById("city").value.trim(),
+                state: document.getElementById("state").value.trim(),
+                pincode: document.getElementById("pincode").value.trim()
+            };
+
+            // Validate required fields
+            for (let key in profileData) {
+                if (key !== "landmark" && profileData[key] === "") {
+                    alert("Please fill in all required fields.");
+                    return;
+                }
+            }
+
+            // Save to localStorage
+            localStorage.setItem("profileData", JSON.stringify(profileData));
+            alert("Profile saved successfully!");
+        });
+
+        // Redirect function for address management
+        function manageAddress() {
+            alert("Redirecting to manage addresses page...");
+        }
+
+        // Load profile data when page loads
+        loadProfile();
+    </script>
+
+</body>
+</html>

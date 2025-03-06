@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pritikart</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            background-color: seashell;
+        }
+        /* Carousel image styling */
+        .carousel img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        /* Responsive image height adjustment */
+        @media (max-width: 768px) {
+            .carousel img {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <h3 class="text-center my-3">Welcome to Pritikart !! 
+        <img src="{% static 'LOGO.jpg' %}" style="width: 50px;" alt="Pritikart Logo">
+    </h3>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">PRITIKART</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home2' %}">HOME</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'my_profile' %}">MY PROFILE</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  CATEGORIES
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'skincare' %}">SKINCARE</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{% url 'makeup' %}">THE MAKEUP STORE</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{% url 'clothes' %}">THE CLOTHING STORE</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{% url 'accessories' %}">ACCESSORIES & JWELLERIES</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+            <!-- Toggle Button for Mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+    <!-- Search Bar -->
+    <div class="input-group mt-3 mx-auto" style="max-width: 500px;">
+        <input type="text" class="form-control" placeholder="Search products..." aria-label="Search">
+        <button class="btn btn-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Carousel -->
+    <div id="carouselExampleDark" class="carousel carousel-dark slide mt-4" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3"></button>
+        </div>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="3000">
+                <img src="https://specials-images.forbesimg.com/imageserve/605d4864bc70d50fa42b5194/960x0.jpg?fit=scale" class="img-fluid w-100" alt="Skincare">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>SKINCARE</h5>
+                </div>
+            </div>
+
+            <div class="carousel-item" data-bs-interval="3000">
+                <img src="https://www.glam.com/img/gallery/17-outdated-makeup-trends-to-leave-behind-in-2022/l-intro-1670791847.jpg" class="img-fluid w-100" alt="Makeup Store">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>THE MAKEUP STORE</h5>
+                </div>
+            </div>
+
+            <div class="carousel-item" data-bs-interval="3000">
+              <img width="1024" height="683" src="https://www.peopleareculture.com/wp-content/uploads/2023/03/Glamour-Of-Traditional-Indian-Clothing-Goes-Global-1024x683.webp" class="attachment-large size-large" alt="Glamour of Traditional Indian Clothing Goes Global" itemprop="image" decoding="async" fetchpriority="high" srcset="https://www.peopleareculture.com/wp-content/uploads/2023/03/Glamour-Of-Traditional-Indian-Clothing-Goes-Global-1024x683.webp 1024w, https://www.peopleareculture.com/wp-content/uploads/2023/03/Glamour-Of-Traditional-Indian-Clothing-Goes-Global-300x200.webp 300w, https://www.peopleareculture.com/wp-content/uploads/2023/03/Glamour-Of-Traditional-Indian-Clothing-Goes-Global-768x512.webp 768w, https://www.peopleareculture.com/wp-content/uploads/2023/03/Glamour-Of-Traditional-Indian-Clothing-Goes-Global-272x182.webp 272w, https://www.peopleareculture.com/wp-content/uploads/2023/03/Glamour-Of-Traditional-Indian-Clothing-Goes-Global.webp 1200w" sizes="(max-width: 1024px) 100vw, 1024px" loading="eager">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>THE CLOTHING STORE</h5>
+                </div>
+            </div>
+
+            <div class="carousel-item" data-bs-interval="3000">
+                <img src="https://rukminim2.flixcart.com/image/850/1000/xif0q/vanity-box/4/k/q/mini-round-jewelry-box-accessories-gift-for-girls-women-mini-original-imagt4vmhhhuugj5.jpeg" class="img-fluid w-100" alt="Accessories & Jewelry">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>ACCESSORIES & JEWELRIES</h5>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+    <br><br>
+    <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://static.vecteezy.com/system/resources/previews/026/568/498/non_2x/beauty-make-up-banner-template-cosmetic-products-on-wavy-background-in-nude-skin-tone-colours-advertising-poster-design-for-beauty-store-blog-offers-and-promotion-illustration-free-vector.jpg" class="d-block w-100" alt="Beauty make up banner template">
+        </div>
+        <div class="carousel-item">
+          <img src="https://img.freepik.com/premium-vector/beauty-skincare-social-media-template-promotion_45668-365.jpg" class="d-block w-100" alt="Beauty skincare social media template promotion">
+        </div>
+        <div class="carousel-item">
+          <img src="https://cdn.grabon.in/gograbon/images/web-images/uploads/1618558519347/womens-lifestyle-coupons.jpg" class="d-block w-100" alt="Women's Lifestyle Coupons">
+        </div>
+        <div class="carousel-item">
+          <img src="https://static.vecteezy.com/system/resources/previews/048/759/144/non_2x/valentine-sale-women-accessories-discount-offer-social-media-post-template-design-free-psd.png" class="d-block w-100" alt="Valentine Sale Women Accessories">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    
+</body>
+</html>
+
